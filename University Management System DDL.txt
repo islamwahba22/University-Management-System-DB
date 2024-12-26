@@ -1,0 +1,40 @@
+University Management System DDL:
+  
+CREATE TABLE Students (
+    StudentID INT(7) PRIMARY KEY,
+    Name VARCHAR(80),
+    FirstYear DATE
+);
+
+CREATE TABLE Courses (
+    CourseID INT PRIMARY KEY,
+    Title VARCHAR(100),
+    Credits INT,
+    FacultyID INT REFERENCES Faculty_Info(FacultyID)
+);
+
+CREATE TABLE Faculty_Info (
+    FacultyID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Department VARCHAR(100)
+);
+
+CREATE TABLE Grades (
+    StudentID INT REFERENCES Students(StudentID),
+    CourseID INT REFERENCES Courses(CourseID),
+    Grade CHAR(2),
+    PRIMARY KEY (StudentID, CourseID)
+);
+
+CREATE TABLE Schedules (
+    CourseID INT REFERENCES Courses(CourseID),
+    Day VARCHAR(10),
+    PRIMARY KEY (CourseID, Day)
+);
+
+CREATE TABLE Enroll (
+    StudentID INT REFERENCES Students(StudentID),
+    CourseID INT REFERENCES Courses(CourseID),
+    EDate DATE,
+    PRIMARY KEY (StudentID, CourseID)
+);
